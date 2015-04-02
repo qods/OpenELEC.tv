@@ -286,20 +286,39 @@ PKG_CONFIGURE_OPTS_TARGET="gl_cv_func_gettimeofday_clobber=no \
                            $KODI_PLAYER"
 
 pre_configure_host() {
-# kodi fails to build in subdirs
-  cd $ROOT/$PKG_BUILD
-    rm -rf .$HOST_NAME
+  (
+    cd $ROOT/$PKG_BUILD/tools/depends/native/JsonSchemaBuilder/src
+      do_autoreconf .
+
+    cd $ROOT/$PKG_BUILD/tools/depends/native/TexturePacker/src
+      do_autoreconf .
+  )
+}
+
+configure_host() {
+  (
+    cd $ROOT/$PKG_BUILD/tools/depends/native/JsonSchemaBuilder/src
+      ./configure $HOST_CONFIGURE_OPTS --disable-shared --enable-static
+
+    cd $ROOT/$PKG_BUILD/tools/depends/native/TexturePacker/src
+      ./configure $HOST_CONFIGURE_OPTS --disable-static
+  )
 }
 
 make_host() {
-  make -C tools/depends/native/JsonSchemaBuilder
-  make -C tools/depends/native/TexturePacker
+  (
+    cd $ROOT/$PKG_BUILD/tools/depends/native/JsonSchemaBuilder/src
+      make
+    cd $ROOT/$PKG_BUILD/tools/depends/native/TexturePacker/src
+      make
+  )
 }
 
 makeinstall_host() {
-  cp -PR tools/depends/native/JsonSchemaBuilder/native/JsonSchemaBuilder $ROOT/$TOOLCHAIN/bin
+  rm -f $ROOT/$TOOLCHAIN/bin/JsonSchemaBuilder
+  cp -PR tools/depends/native/JsonSchemaBuilder/src/JsonSchemaBuilder $ROOT/$TOOLCHAIN/bin
   rm -f $ROOT/$TOOLCHAIN/bin/TexturePacker
-  cp -PR tools/depends/native/TexturePacker/native/TexturePacker $ROOT/$TOOLCHAIN/bin
+  cp -PR tools/depends/native/TexturePacker/src/TexturePacker $ROOT/$TOOLCHAIN/bin
 }
 
 pre_build_target() {
