@@ -115,7 +115,13 @@ SED="sed -i"
   fi
 
   if [ "$PKG_IS_ADDON" = "yes" ] ; then
-    [ -z $PKG_SECTION ] && PKG_ADDON_ID="$PKG_NAME" || PKG_ADDON_ID="`echo $PKG_SECTION | sed 's,/,.,g'`.$PKG_NAME"
+    if [ -z "$PKG_ADDON_ID" ]; then
+      if [ -z "$PKG_SECTION" ]; then
+        PKG_ADDON_ID="$PKG_NAME"
+      else
+        PKG_ADDON_ID="`echo $PKG_SECTION | sed 's,/,.,g'`.$PKG_NAME"
+      fi
+    fi
   fi
 
   PKG_BUILD="$BUILD/${PKG_NAME}-${PKG_VERSION}"
