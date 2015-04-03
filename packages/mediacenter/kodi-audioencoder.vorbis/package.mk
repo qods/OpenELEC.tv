@@ -16,21 +16,23 @@
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="kodi-audioencoder-vorbis"
-PKG_VERSION="dbf5c62"
+PKG_NAME="kodi-audioencoder.vorbis"
+PKG_VERSION="d556a68"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kodi.tv"
-PKG_URL="$DISTRO_SRC/$PKG_NAME-$PKG_VERSION.tar.xz"
-PKG_DEPENDS_TARGET="toolchain libogg libvorbis kodi"
+PKG_URL="http://saraev.ca/openelec/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET="toolchain kodi-platform libogg libvorbis"
 PKG_PRIORITY="optional"
-PKG_SECTION="multimedia"
-PKG_SHORTDESC="kodi-audioencoder-vorbis: A audioencoder addon for Kodi"
-PKG_LONGDESC="kodi-audioencoder-vorbis is a audioencoder addon for Kodi"
-
-PKG_IS_ADDON="no"
+PKG_SECTION=""
+PKG_SHORTDESC="audioencoder.vorbis: A audioencoder addon for Kodi"
+PKG_LONGDESC="audioencoder.vorbis is a audioencoder addon for Kodi"
 PKG_AUTORECONF="no"
+
+PKG_IS_ADDON="yes"
+PKG_ADDON_ID="audioencoder.vorbis"
+PKG_ADDON_TYPE="xbmc.audioencoder"
 
 configure_target() {
   cmake -DCMAKE_TOOLCHAIN_FILE=$CMAKE_CONF \
@@ -41,4 +43,10 @@ configure_target() {
         -DVORBIS_INCLUDE_DIRS=$SYSROOT_PREFIX/usr/include \
         -DVORBISENC_INCLUDE_DIRS=$SYSROOT_PREFIX/usr/include \
         ..
+}
+
+addon() {
+  mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/
+  cp -PR $PKG_BUILD/.install_pkg/usr/share/kodi/addons/$PKG_ADDON_ID/* $ADDON_BUILD/$PKG_ADDON_ID/
+  cp -PL $PKG_BUILD/.install_pkg/usr/lib/kodi/addons/$PKG_ADDON_ID/*.so $ADDON_BUILD/$PKG_ADDON_ID/
 }
