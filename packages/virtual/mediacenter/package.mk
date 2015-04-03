@@ -49,9 +49,6 @@ if [ "$MEDIACENTER" = "kodi" ]; then
     done
   fi
 
-# various PVR clients
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET kodi-pvr-addons"
-
 # other packages
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET OpenELEC-settings"
 fi
