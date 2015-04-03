@@ -43,10 +43,6 @@
 # build and install 'Spectrum' Visualization (yes / no)
   KODI_VIS_SPECTRUM="yes"
 
-# build and install 'FishBMC' Visualization (yes / no)
-  # does not work on RPi
-  KODI_VIS_FISHBMC="yes"
-
 # build and install espeak support (yes / no)
   ESPEAK_SUPPORT="yes"
 
