@@ -37,9 +37,6 @@
 # build and install 'GOOM' Visualization (yes / no)
   KODI_VIS_GOOM="yes"
 
-# build and install 'Waveform' Visualization (yes / no)
-  KODI_VIS_WAVEFORM="yes"
-
 # build and install espeak support (yes / no)
   ESPEAK_SUPPORT="yes"
 
