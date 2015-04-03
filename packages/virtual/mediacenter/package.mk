@@ -42,13 +42,6 @@ if [ "$MEDIACENTER" = "kodi" ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET simplejson"
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET pycrypto"
 
-# Kodi audio encoder addons
-  if [ "$KODI_OPTICAL_SUPPORT" = "yes" ]; then
-    for audioencoder in $KODI_AUDIOENCODER_ADDONS; do
-      PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET kodi-audioencoder-$audioencoder"
-    done
-  fi
-
 # other packages
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET OpenELEC-settings"
 fi
